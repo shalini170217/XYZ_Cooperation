@@ -1,0 +1,89 @@
+// Portal 1: PDF Handling, Embeddings, and Querying
+
+const express = require('express');
+const multer = require('multer');
+const pdfParse = require('pdf-parse');
+
+const app = express();
+const upload = multer({ dest: 'uploads/' });
+
+// Load PDF and extract text
+app.post('/upload', upload.single('file'), async (req, res) => {
+    const dataBuffer = fs.readFileSync(req.file.path);
+    const pdfData = await pdfParse(dataBuffer);
+
+    // Extracted text from PDF
+    const text = pdfData.text;
+
+    // Generate embeddings (dummy response here)
+    const embeddings = generateEmbeddings(text);
+
+    res.json({ text, embeddings });
+});
+
+// Dummy function for generating embeddings
+function generateEmbeddings(text) {
+    return text.split(' ').map(word => word.length);
+}
+
+// Query embeddings
+app.post('/query', (req, res) => {
+    const query = req.body.query;
+    const embeddings = generateEmbeddings(query);
+    res.json({ query, embeddings });
+});
+
+app.listen(3001, () => console.log('Portal 1 running on port 3001'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Portal 2: Text Generation with microsoft/phi-2
+
+const express = require('express');
+const axios = require('axios');
+
+const app = express();
+app.use(express.json());
+
+// Generate text using phi-2 model
+app.post('/generate', async (req, res) => {
+    const { prompt } = req.body;
+
+    try {
+        const response = await axios.post('https://api.openai.com/v1/completions', {
+            model: 'microsoft/phi-2',
+            prompt: prompt,
+            max_tokens: 100
+        }, {
+            headers: {
+                'Authorization': `Bearer YOUR_API_KEY`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        res.json({ result: response.data.choices[0].text });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+app.listen(3002, () => console.log('Portal 2 running on port 3002'));
