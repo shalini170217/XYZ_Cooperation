@@ -38,7 +38,7 @@ export default function AuthPage() {
         if (isAdmin) {
           router.push("/admin")
         } else {
-          router.push("https://b73826cb45b1360b4f.gradio.live")
+          router.push("https://f21340e470d5fca7db.gradio.live")
         }
       } else {
         setError("Invalid OTP code. Please try again.")
