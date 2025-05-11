@@ -19,5 +19,6 @@ To retrieve relevant data from the FAISS vector store and generate clear, concis
 Seamless User Interaction:
 
 To create a chatbot interface that can handle both formal queries (related to policies, salary, perks, etc.) and informal conversations (small talk and general interaction) for better user engagement.
-![Uploading WhatsApp Image 2025-03-19 at 8.40.38 AM.jpeg…]()
+
+
 
